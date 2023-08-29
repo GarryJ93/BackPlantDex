@@ -6,7 +6,7 @@ export class Plant {
     id: number;
 
     @Column()
-    code_plant: number;
+    code_plante: number;
 
     @Column()
     nom: string;
@@ -18,7 +18,7 @@ export class Plant {
     arrosage: number;
 
     @Column()
-    catégorie: string;
+    categorie: string;
 
     @Column()
     image: string;
