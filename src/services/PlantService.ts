@@ -19,6 +19,20 @@ export class PlantService {
     }
 
     async update(id: number, plant: Plant) {
-        const plantToUpdate = await this.getByID(id);
+        let plantToUpdate = await this.getByID(id);
+
+        if (!plantToUpdate) {
+            return null;
+        }
+        Object.assign(plantToUpdate, plant)
+        return this.plantRepository.save(plantToUpdate);
+    }
+
+    async delete(id: number) {
+        const plantToDelete = await this.getByID(id);
+        if (!plantToDelete) {
+            return null;
+        }
+        return this.plantRepository.remove(plantToDelete);
     }
 }

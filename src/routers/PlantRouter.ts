@@ -18,4 +18,12 @@ plantRouter.post("/", checkObject, (req: Request, res: Response) => {
     plantController.createNewPlant(req, res);
 })
 
+plantRouter.put("/:id",checkIdNumber, checkObject, (req: Request, res: Response) => {
+    plantController.updatePlant(req, res);
+})
+
+plantRouter.delete("/:id", checkIdNumber, (req: Request, res: Response) => {
+    plantController.deletePlant(req, res);
+} )
+
 export default plantRouter;
