@@ -21,10 +21,10 @@ export class PlantService {
     async update(id: number, plant: Plant) {
         let plantToUpdate = await this.getByID(id);
 
-        if (!plantToUpdate) {
+        if (!plantToUpdate || !plant) {
             return null;
         }
-        Object.assign(plantToUpdate, plant)
+        Object.assign(plantToUpdate, plant);
         return this.plantRepository.save(plantToUpdate);
     }
 
