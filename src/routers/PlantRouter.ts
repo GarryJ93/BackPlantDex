@@ -23,7 +23,7 @@ plantRouter.put("/:id",checkIdNumber, checkToken, (req: Request, res: Response) 
     plantController.updatePlant(req, res);
 })
 
-plantRouter.delete("/:id", checkIdNumber, checkToken, (req: Request, res: Response) => {
+plantRouter.delete("/:id", checkToken, (req: Request, res: Response) => {
     plantController.deletePlant(req, res);
 } )
 

@@ -25,13 +25,23 @@ export class UserService {
         }
     }
 
-    async login(email: string, password: string) {
-        const found = await this.userRepository.findOneBy({ email: email });
+     async login(email: string, password: string) {
+        console.log(password)
+        const found = await this.userRepository.findOneBy({ email: email })
         if (!found) {
-            return null;
+            throw new Error('Email non trouvé')
+        }
+        console.log('mot de passe entrée:', password)
+        const passwordMatched = await bcrypt.compare(password, found.password);
+        console.log('hash mot de passe',found.password)
+        if (!passwordMatched) {
+            throw new Error('Mot de passe incorrect')
         }
 
-        const token = jwt.sign({ sub: found.id, email: found.email }, process.env.JWT_SECRET, { expiresIn: "30min" });
-        return token;
+        const token = jwt.sign({ sub: found.id, email: found.email }, process.env.JWT_SECRET, { expiresIn: "1h" });
+        
+        console.log('Token généré pour', email, ':', token);
+        return {token :token};
     }
+
 }

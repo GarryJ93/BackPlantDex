@@ -21,15 +21,17 @@ export class UserController {
     }
 
     async login(req: Request, res: Response) {
-        const email = req.body.email;
-        const password = req.body.password;
-
-        const token = await this.userService.login(email, password);
-
-        if (!token) {
-            res.status(500).send({ status: "FAILED", message: "Oups..." });
-            return;
+        try {
+            const {email, password}= req.body;
+            console.log(req.body)
+            const token = await this.userService.login(email, password);
+            if(!token){
+                return res.status(400).send({status: 'KO', message: 'Authentification échoué ou token non généré'})
+            }
+            res.send({status : "OK", access_token: token})
+        } catch (error) {
+            res.status(400).send({status: "KO", message: error.message})
         }
-        res.send({ status: "OK", data: token });
+
     }
 }
